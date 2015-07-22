@@ -3,7 +3,26 @@
 ## Create a site config.
 
     cp site.cfg.example site.cfg
-    edit site.cfg
+    # edit site.cfg
+
+## Acquire the images
+
+    # get rtmin
+    docker pull mysql:5.5
+    docker pull mongo:2.4
+
+
+## Create a config file, and a tag file for the versions.  This determines what version of services will be deployed.
+
+    ./scripts/generate_config
+    ./deploy_cluster mkhashfile tagfile
+
+## Build images
+Make sure kbase/rtmin is available. This is provide by a branch in the bootstrap repo.
+
+    docker build -t kbase/deplbase:1.0 -f Dockerfile.base .
+    docker build -t kbase/depl:1.0 .
+    ./scripts/build_narrative
 
 ## Run the bootstrap script to start things up
 
@@ -15,7 +34,6 @@ These steps are done by the bootstrap.  Advanced users may need to run some step
 
 ## Create self-signed certs or copy in certs to ./ssl.  Create the config from the docker template.
 
-    ./scripts/generate_config
     ./scripts/create_certs
 
 ## Create a tag file for the versions.  This determines what version of services will be deployed.
@@ -23,13 +41,6 @@ These steps are done by the bootstrap.  Advanced users may need to run some step
     ./deploy_cluster mkhashfile tagfile
 
 
-## Build images
-
-Make sure kbase/rtmin is available. This is provide by a branch in the bootstrap repo.
-
-    docker build -t kbase/deplbase:1.0 -f Dockerfile.base .
-    docker build -t kbase/depl:1.0 .
-    ./scripts/build_narrative
 
 ## Start Base services
 
