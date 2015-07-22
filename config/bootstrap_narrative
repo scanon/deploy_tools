@@ -36,11 +36,12 @@ if ( ! -e "/usr/local/lib/luarocks/rocks/luasocket" ){
     mysystem("luarocks install luacrypto");
 }
 add_package("nodejs-dev npm nodejs-legacy","/usr/bin/node");
+mysystem("apt-get remove -y apache2 || echo 'apache2 not installed, ignore'");
 mysystem("npm install -g grunt-cli");
 
 mysystem("usermod www-data -G docker");
 mysystem("restart docker.io");
-mysystem("/etc/init.d/apache2 stop || echo Ignore");
+#mysystem("/etc/init.d/apache2 stop || echo Ignore");
 
 
 sub add_package {
