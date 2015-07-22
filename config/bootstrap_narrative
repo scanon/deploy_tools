@@ -36,7 +36,8 @@ if ( ! -e "/usr/local/lib/luarocks/rocks/luasocket" ){
     mysystem("luarocks install luacrypto");
 }
 add_package("nodejs-dev npm nodejs-legacy","/usr/bin/node");
-mysystem("apt-get remove -y apache2 || echo 'apache2 not installed, ignore'");
+# if the package doesn't exists apt-get still returns 0
+mysystem("apt-get remove -y apache2");
 mysystem("npm install -g grunt-cli");
 
 mysystem("usermod www-data -G docker");
